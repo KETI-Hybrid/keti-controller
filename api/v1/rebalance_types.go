@@ -29,7 +29,7 @@ type RebalanceSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of Rebalance. Edit rebalance_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	CurrentLevel string `json:"currentlevel,omitempty"`
 }
 
 // RebalanceStatus defines the observed state of Rebalance

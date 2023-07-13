@@ -29,7 +29,7 @@ type WatchingSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of Watching. Edit watching_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	CurrentLevel string `json:"currentlevel,omitempty"`
 }
 
 // WatchingStatus defines the observed state of Watching

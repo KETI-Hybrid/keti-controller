@@ -1,0 +1,85 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - level.keti.res
+  resources:
+  - rebalances
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - level.keti.res
+  resources:
+  - rebalances/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - level.keti.res
+  resources:
+  - rebalances/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - level.keti.res
+  resources:
+  - warnings
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - level.keti.res
+  resources:
+  - warnings/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - level.keti.res
+  resources:
+  - warnings/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - level.keti.res
+  resources:
+  - watchings
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - level.keti.res
+  resources:
+  - watchings/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - level.keti.res
+  resources:
+  - watchings/status
+  verbs:
+  - get
+  - patch
+  - update
