@@ -1,0 +1,12 @@
+apiVersion: level.keti.res/v1
+kind: Warning
+metadata:
+  labels:
+    app.kubernetes.io/name: warning
+    app.kubernetes.io/instance: warning-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: warning-sample
+spec:
+  # TODO(user): Add fields here

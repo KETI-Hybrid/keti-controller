@@ -1,0 +1,12 @@
+apiVersion: level.keti.res/v1
+kind: Watching
+metadata:
+  labels:
+    app.kubernetes.io/name: watching
+    app.kubernetes.io/instance: watching-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: watching-sample
+spec:
+  # TODO(user): Add fields here

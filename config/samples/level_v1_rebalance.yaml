@@ -1,0 +1,12 @@
+apiVersion: level.keti.res/v1
+kind: Rebalance
+metadata:
+  labels:
+    app.kubernetes.io/name: rebalance
+    app.kubernetes.io/instance: rebalance-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: rebalance-sample
+spec:
+  # TODO(user): Add fields here
