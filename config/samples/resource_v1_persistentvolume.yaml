@@ -1,0 +1,12 @@
+apiVersion: resource.hybrid.keti/v1
+kind: PersistentVolume
+metadata:
+  labels:
+    app.kubernetes.io/name: persistentvolume
+    app.kubernetes.io/instance: persistentvolume-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: persistentvolume-sample
+spec:
+  # TODO(user): Add fields here

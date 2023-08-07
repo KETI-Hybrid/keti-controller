@@ -31,8 +31,14 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	levelv1 "github.com/KETI-Hybrid/keti-controller/api/v1"
-	"github.com/KETI-Hybrid/keti-controller/controllers"
+	authv1 "github.com/KETI-Hybrid/keti-controller/apis/auth/v1"
+	cloudv1 "github.com/KETI-Hybrid/keti-controller/apis/cloud/v1"
+	levelv1 "github.com/KETI-Hybrid/keti-controller/apis/level/v1"
+	resourcev1 "github.com/KETI-Hybrid/keti-controller/apis/resource/v1"
+	authcontrollers "github.com/KETI-Hybrid/keti-controller/controllers/auth"
+	cloudcontrollers "github.com/KETI-Hybrid/keti-controller/controllers/cloud"
+	levelcontrollers "github.com/KETI-Hybrid/keti-controller/controllers/level"
+	resourcecontrollers "github.com/KETI-Hybrid/keti-controller/controllers/resource"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -44,6 +50,9 @@ var (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
+	utilruntime.Must(resourcev1.AddToScheme(scheme))
+	utilruntime.Must(cloudv1.AddToScheme(scheme))
+	utilruntime.Must(authv1.AddToScheme(scheme))
 	utilruntime.Must(levelv1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
@@ -71,7 +80,7 @@ func main() {
 		Port:                   9443,
 		HealthProbeBindAddress: probeAddr,
 		LeaderElection:         enableLeaderElection,
-		LeaderElectionID:       "03145ee7.keti.res",
+		LeaderElectionID:       "03145ee7.hybrid.keti",
 		// LeaderElectionReleaseOnCancel defines if the leader should step down voluntarily
 		// when the Manager ends. This requires the binary to immediately end when the
 		// Manager is stopped, otherwise, this setting is unsafe. Setting this significantly
@@ -89,25 +98,172 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = (&controllers.WarningReconciler{
+	if err = (&resourcecontrollers.PodReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "Warning")
+		setupLog.Error(err, "unable to create controller", "controller", "Pod")
 		os.Exit(1)
 	}
-	if err = (&controllers.WatchingReconciler{
+	if err = (&resourcecontrollers.ServiceReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Service")
+		os.Exit(1)
+	}
+	if err = (&resourcecontrollers.IngressReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Ingress")
+		os.Exit(1)
+	}
+	if err = (&resourcecontrollers.PersistentVolumeReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "PersistentVolume")
+		os.Exit(1)
+	}
+	if err = (&resourcecontrollers.PersistentVolumeClaimReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "PersistentVolumeClaim")
+		os.Exit(1)
+	}
+	if err = (&resourcecontrollers.DaemonsetReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Daemonset")
+		os.Exit(1)
+	}
+	if err = (&resourcecontrollers.StatefulsetReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Statefulset")
+		os.Exit(1)
+	}
+	if err = (&resourcecontrollers.DeploymentReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Deployment")
+		os.Exit(1)
+	}
+	if err = (&resourcecontrollers.SpecificResourceReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "SpecificResource")
+		os.Exit(1)
+	}
+	if err = (&cloudcontrollers.AmazonReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Amazon")
+		os.Exit(1)
+	}
+	if err = (&cloudcontrollers.GoogleReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Google")
+		os.Exit(1)
+	}
+	if err = (&cloudcontrollers.AzureReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Azure")
+		os.Exit(1)
+	}
+	if err = (&cloudcontrollers.NaverReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Naver")
+		os.Exit(1)
+	}
+	if err = (&cloudcontrollers.NHNReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "NHN")
+		os.Exit(1)
+	}
+	if err = (&cloudcontrollers.KTReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "KT")
+		os.Exit(1)
+	}
+	if err = (&authcontrollers.AmazonReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Amazon")
+		os.Exit(1)
+	}
+	if err = (&authcontrollers.GoogleReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Google")
+		os.Exit(1)
+	}
+	if err = (&authcontrollers.AzureReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Azure")
+		os.Exit(1)
+	}
+	if err = (&authcontrollers.NaverReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Naver")
+		os.Exit(1)
+	}
+	if err = (&authcontrollers.NHNReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "NHN")
+		os.Exit(1)
+	}
+	if err = (&authcontrollers.KTReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "KT")
+		os.Exit(1)
+	}
+	if err = (&levelcontrollers.RebalanceReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Rebalance")
+		os.Exit(1)
+	}
+	if err = (&levelcontrollers.WatchingReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Watching")
 		os.Exit(1)
 	}
-	if err = (&controllers.RebalanceReconciler{
+	if err = (&levelcontrollers.WarningReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "Rebalance")
+		setupLog.Error(err, "unable to create controller", "controller", "Warning")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder

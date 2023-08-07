@@ -1,4 +1,4 @@
-apiVersion: level.keti.res/v1
+apiVersion: level.hybrid.keti/v1
 kind: Rebalance
 metadata:
   labels:

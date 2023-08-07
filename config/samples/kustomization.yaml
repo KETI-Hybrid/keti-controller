@@ -1,6 +1,27 @@
 ## Append samples you want in your CSV to this file as resources ##
 resources:
-- level_v1_warning.yaml
-- level_v1_watching.yaml
+- resource_v1_pod.yaml
+- resource_v1_service.yaml
+- resource_v1_ingress.yaml
+- resource_v1_persistentvolume.yaml
+- resource_v1_persistentvolumeclaim.yaml
+- resource_v1_daemonset.yaml
+- resource_v1_statefulset.yaml
+- resource_v1_deployment.yaml
+- resource_v1_specificresource.yaml
+- cloud_v1_amazon.yaml
+- cloud_v1_google.yaml
+- cloud_v1_azure.yaml
+- cloud_v1_naver.yaml
+- cloud_v1_nhn.yaml
+- cloud_v1_kt.yaml
+- auth_v1_amazon.yaml
+- auth_v1_google.yaml
+- auth_v1_azure.yaml
+- auth_v1_naver.yaml
+- auth_v1_nhn.yaml
+- auth_v1_kt.yaml
 - level_v1_rebalance.yaml
+- level_v1_watching.yaml
+- level_v1_warning.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

@@ -1,0 +1,27 @@
+# permissions for end users to view googles.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: google-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: keti-controller
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: google-viewer-role
+rules:
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - googles
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - googles/status
+  verbs:
+  - get

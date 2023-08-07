@@ -2,9 +2,10 @@
 # This file is used to track the info used to scaffold your project
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
-domain: keti.res
+domain: hybrid.keti
 layout:
 - go.kubebuilder.io/v3
+multigroup: true
 plugins:
   manifests.sdk.operatorframework.io/v2: {}
   scorecard.sdk.operatorframework.io/v2: {}
@@ -13,26 +14,218 @@ repo: github.com/KETI-Hybrid/keti-controller
 resources:
 - api:
     crdVersion: v1
+    namespaced: true
   controller: true
-  domain: keti.res
-  group: level
-  kind: Warning
-  path: github.com/KETI-Hybrid/keti-controller/api/v1
+  domain: hybrid.keti
+  group: resource
+  kind: Pod
+  path: github.com/KETI-Hybrid/keti-controller/apis/resource/v1
   version: v1
 - api:
     crdVersion: v1
+    namespaced: true
   controller: true
-  domain: keti.res
-  group: level
-  kind: Watching
-  path: github.com/KETI-Hybrid/keti-controller/api/v1
+  domain: hybrid.keti
+  group: resource
+  kind: Service
+  path: github.com/KETI-Hybrid/keti-controller/apis/resource/v1
   version: v1
 - api:
     crdVersion: v1
+    namespaced: true
   controller: true
-  domain: keti.res
+  domain: hybrid.keti
+  group: resource
+  kind: Ingress
+  path: github.com/KETI-Hybrid/keti-controller/apis/resource/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: resource
+  kind: PersistentVolume
+  path: github.com/KETI-Hybrid/keti-controller/apis/resource/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: resource
+  kind: PersistentVolumeClaim
+  path: github.com/KETI-Hybrid/keti-controller/apis/resource/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: resource
+  kind: Daemonset
+  path: github.com/KETI-Hybrid/keti-controller/apis/resource/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: resource
+  kind: Statefulset
+  path: github.com/KETI-Hybrid/keti-controller/apis/resource/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: resource
+  kind: Deployment
+  path: github.com/KETI-Hybrid/keti-controller/apis/resource/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: resource
+  kind: SpecificResource
+  path: github.com/KETI-Hybrid/keti-controller/apis/resource/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: cloud
+  kind: Amazon
+  path: github.com/KETI-Hybrid/keti-controller/apis/cloud/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: cloud
+  kind: Google
+  path: github.com/KETI-Hybrid/keti-controller/apis/cloud/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: cloud
+  kind: Azure
+  path: github.com/KETI-Hybrid/keti-controller/apis/cloud/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: cloud
+  kind: Naver
+  path: github.com/KETI-Hybrid/keti-controller/apis/cloud/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: cloud
+  kind: NHN
+  path: github.com/KETI-Hybrid/keti-controller/apis/cloud/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: cloud
+  kind: KT
+  path: github.com/KETI-Hybrid/keti-controller/apis/cloud/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: auth
+  kind: Amazon
+  path: github.com/KETI-Hybrid/keti-controller/apis/auth/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: auth
+  kind: Google
+  path: github.com/KETI-Hybrid/keti-controller/apis/auth/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: auth
+  kind: Azure
+  path: github.com/KETI-Hybrid/keti-controller/apis/auth/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: auth
+  kind: Naver
+  path: github.com/KETI-Hybrid/keti-controller/apis/auth/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: auth
+  kind: NHN
+  path: github.com/KETI-Hybrid/keti-controller/apis/auth/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: auth
+  kind: KT
+  path: github.com/KETI-Hybrid/keti-controller/apis/auth/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
   group: level
   kind: Rebalance
-  path: github.com/KETI-Hybrid/keti-controller/api/v1
+  path: github.com/KETI-Hybrid/keti-controller/apis/level/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: level
+  kind: Watching
+  path: github.com/KETI-Hybrid/keti-controller/apis/level/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: level
+  kind: Warning
+  path: github.com/KETI-Hybrid/keti-controller/apis/level/v1
   version: v1
 version: "3"

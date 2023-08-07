@@ -1,0 +1,12 @@
+apiVersion: auth.hybrid.keti/v1
+kind: Naver
+metadata:
+  labels:
+    app.kubernetes.io/name: naver
+    app.kubernetes.io/instance: naver-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: naver-sample
+spec:
+  # TODO(user): Add fields here

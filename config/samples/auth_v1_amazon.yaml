@@ -1,0 +1,12 @@
+apiVersion: auth.hybrid.keti/v1
+kind: Amazon
+metadata:
+  labels:
+    app.kubernetes.io/name: amazon
+    app.kubernetes.io/instance: amazon-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: amazon-sample
+spec:
+  # TODO(user): Add fields here

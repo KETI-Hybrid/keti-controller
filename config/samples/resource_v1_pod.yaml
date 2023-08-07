@@ -1,0 +1,12 @@
+apiVersion: resource.hybrid.keti/v1
+kind: Pod
+metadata:
+  labels:
+    app.kubernetes.io/name: pod
+    app.kubernetes.io/instance: pod-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: pod-sample
+spec:
+  # TODO(user): Add fields here

@@ -1,0 +1,12 @@
+apiVersion: resource.hybrid.keti/v1
+kind: Daemonset
+metadata:
+  labels:
+    app.kubernetes.io/name: daemonset
+    app.kubernetes.io/instance: daemonset-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: daemonset-sample
+spec:
+  # TODO(user): Add fields here

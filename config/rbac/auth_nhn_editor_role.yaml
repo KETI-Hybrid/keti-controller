@@ -1,0 +1,31 @@
+# permissions for end users to edit nhns.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: nhn-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: keti-controller
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: nhn-editor-role
+rules:
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - nhns
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - nhns/status
+  verbs:
+  - get

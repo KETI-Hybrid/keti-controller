@@ -1,0 +1,12 @@
+apiVersion: resource.hybrid.keti/v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app.kubernetes.io/name: persistentvolumeclaim
+    app.kubernetes.io/instance: persistentvolumeclaim-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: persistentvolumeclaim-sample
+spec:
+  # TODO(user): Add fields here

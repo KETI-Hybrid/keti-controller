@@ -1,0 +1,12 @@
+apiVersion: resource.hybrid.keti/v1
+kind: SpecificResource
+metadata:
+  labels:
+    app.kubernetes.io/name: specificresource
+    app.kubernetes.io/instance: specificresource-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: specificresource-sample
+spec:
+  # TODO(user): Add fields here

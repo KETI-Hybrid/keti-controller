@@ -2,24 +2,75 @@
 # since it depends on service name and namespace that are out of this kustomize package.
 # It should be run by config/default
 resources:
-- bases/level.keti.res_warnings.yaml
-- bases/level.keti.res_watchings.yaml
-- bases/level.keti.res_rebalances.yaml
+- bases/resource.hybrid.keti_pods.yaml
+- bases/resource.hybrid.keti_services.yaml
+- bases/resource.hybrid.keti_ingresses.yaml
+- bases/resource.hybrid.keti_persistentvolumes.yaml
+- bases/resource.hybrid.keti_persistentvolumeclaims.yaml
+- bases/resource.hybrid.keti_daemonsets.yaml
+- bases/resource.hybrid.keti_statefulsets.yaml
+- bases/resource.hybrid.keti_deployments.yaml
+- bases/resource.hybrid.keti_specificresources.yaml
+- bases/cloud.hybrid.keti_amazons.yaml
+- bases/cloud.hybrid.keti_googles.yaml
+- bases/cloud.hybrid.keti_azures.yaml
+- bases/cloud.hybrid.keti_navers.yaml
+- bases/cloud.hybrid.keti_nhns.yaml
+- bases/cloud.hybrid.keti_kts.yaml
+- bases/auth.hybrid.keti_amazons.yaml
+- bases/auth.hybrid.keti_googles.yaml
+- bases/auth.hybrid.keti_azures.yaml
+- bases/auth.hybrid.keti_navers.yaml
+- bases/auth.hybrid.keti_nhns.yaml
+- bases/auth.hybrid.keti_kts.yaml
+- bases/level.hybrid.keti_rebalances.yaml
+- bases/level.hybrid.keti_watchings.yaml
+- bases/level.hybrid.keti_warnings.yaml
 #+kubebuilder:scaffold:crdkustomizeresource
 
 patchesStrategicMerge:
 # [WEBHOOK] To enable webhook, uncomment all the sections with [WEBHOOK] prefix.
 # patches here are for enabling the conversion webhook for each CRD
-#- patches/webhook_in_warnings.yaml
-#- patches/webhook_in_watchings.yaml
+#- patches/webhook_in_pods.yaml
+#- patches/webhook_in_services.yaml
+#- patches/webhook_in_ingresses.yaml
+#- patches/webhook_in_persistentvolumes.yaml
+#- patches/webhook_in_persistentvolumeclaims.yaml
+#- patches/webhook_in_daemonsets.yaml
+#- patches/webhook_in_statefulsets.yaml
+#- patches/webhook_in_deployments.yaml
+#- patches/webhook_in_specificresources.yaml
+#- patches/webhook_in_amazons.yaml
+#- patches/webhook_in_googles.yaml
+#- patches/webhook_in_azures.yaml
+#- patches/webhook_in_navers.yaml
+#- patches/webhook_in_nhns.yaml
+#- patches/webhook_in_kts.yaml
 #- patches/webhook_in_rebalances.yaml
+#- patches/webhook_in_watchings.yaml
+#- patches/webhook_in_warnings.yaml
 #+kubebuilder:scaffold:crdkustomizewebhookpatch
 
 # [CERTMANAGER] To enable cert-manager, uncomment all the sections with [CERTMANAGER] prefix.
 # patches here are for enabling the CA injection for each CRD
-#- patches/cainjection_in_warnings.yaml
-#- patches/cainjection_in_watchings.yaml
+#- patches/cainjection_in_pods.yaml
+#- patches/cainjection_in_services.yaml
+#- patches/cainjection_in_ingresses.yaml
+#- patches/cainjection_in_persistentvolumes.yaml
+#- patches/cainjection_in_persistentvolumeclaims.yaml
+#- patches/cainjection_in_daemonsets.yaml
+#- patches/cainjection_in_statefulsets.yaml
+#- patches/cainjection_in_deployments.yaml
+#- patches/cainjection_in_specificresources.yaml
+#- patches/cainjection_in_amazons.yaml
+#- patches/cainjection_in_googles.yaml
+#- patches/cainjection_in_azures.yaml
+#- patches/cainjection_in_navers.yaml
+#- patches/cainjection_in_nhns.yaml
+#- patches/cainjection_in_kts.yaml
 #- patches/cainjection_in_rebalances.yaml
+#- patches/cainjection_in_watchings.yaml
+#- patches/cainjection_in_warnings.yaml
 #+kubebuilder:scaffold:crdkustomizecainjectionpatch
 
 # the following config is for teaching kustomize how to do kustomization for CRDs.

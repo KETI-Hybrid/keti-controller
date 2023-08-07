@@ -1,0 +1,12 @@
+apiVersion: resource.hybrid.keti/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/name: ingress
+    app.kubernetes.io/instance: ingress-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: ingress-sample
+spec:
+  # TODO(user): Add fields here

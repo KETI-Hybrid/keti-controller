@@ -1,0 +1,27 @@
+# permissions for end users to view ingresses.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: ingress-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: keti-controller
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: ingress-viewer-role
+rules:
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - ingresses/status
+  verbs:
+  - get

@@ -1,0 +1,27 @@
+# permissions for end users to view nhns.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: nhn-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: keti-controller
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: nhn-viewer-role
+rules:
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - nhns
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - nhns/status
+  verbs:
+  - get
