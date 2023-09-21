@@ -29,7 +29,7 @@ type AmazonSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of Amazon. Edit amazon_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	ClusterName string `json:"clusterName,omitempty"`
 }
 
 // AmazonStatus defines the observed state of Amazon

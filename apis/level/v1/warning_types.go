@@ -29,7 +29,9 @@ type WarningSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of Warning. Edit warning_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	ClusterName string `json:"clusterName,omitempty"`
+	NodeName    string `json:"nodeName,omitempty"`
+	Level       string `json:"level,omitempty"`
 }
 
 // WarningStatus defines the observed state of Warning

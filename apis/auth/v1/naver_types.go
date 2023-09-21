@@ -29,7 +29,10 @@ type NaverSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of Naver. Edit naver_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	AccessKey string `json:"accessKey,omitempty"`
+	SecretKey string `json:"secretKey,omitempty"`
+	ClusterID string `json:"clusterID,omitempty"`
+	Region    string `json:"region,omitempty"`
 }
 
 // NaverStatus defines the observed state of Naver

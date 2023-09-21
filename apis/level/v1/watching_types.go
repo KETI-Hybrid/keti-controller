@@ -28,8 +28,9 @@ type WatchingSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Watching. Edit watching_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	ClusterName string `json:"clusterName,omitempty"`
+	PodName     string `json:"podName,omitempty"`
+	Level       string `json:"level,omitempty"`
 }
 
 // WatchingStatus defines the observed state of Watching

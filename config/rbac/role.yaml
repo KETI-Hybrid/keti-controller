@@ -1,0 +1,631 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - amazons
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - amazons/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - amazons/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - azures
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - azures/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - azures/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - googles
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - googles/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - googles/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - kts
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - kts/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - kts/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - navers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - navers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - navers/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - nhns
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - nhns/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - auth.hybrid.keti
+  resources:
+  - nhns/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - amazons
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - amazons/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - amazons/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - azures
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - azures/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - azures/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - googles
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - googles/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - googles/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - kts
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - kts/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - kts/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - navers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - navers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - navers/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - nhns
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - nhns/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cloud.hybrid.keti
+  resources:
+  - nhns/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - rebalances
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - rebalances/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - rebalances/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - warnings
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - warnings/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - warnings/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - watchings
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - watchings/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - watchings/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - daemonsets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - daemonsets/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - daemonsets/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - deployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - deployments/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - deployments/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - ingresses
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - ingresses/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - ingresses/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - persistentvolumeclaims
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - persistentvolumeclaims/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - persistentvolumeclaims/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - persistentvolumes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - persistentvolumes/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - persistentvolumes/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - pods
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - pods/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - pods/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - services
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - services/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - services/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - specificresources
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - specificresources/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - specificresources/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - statefulsets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - statefulsets/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - statefulsets/status
+  verbs:
+  - get
+  - patch
+  - update

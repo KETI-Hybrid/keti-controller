@@ -28,8 +28,8 @@ type RebalanceSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Rebalance. Edit rebalance_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	ClusterName    string `json:"clusterName,omitempty"`
+	RebalanceLevel string `json:"rebalanceLevel,omitempty"`
 }
 
 // RebalanceStatus defines the observed state of Rebalance

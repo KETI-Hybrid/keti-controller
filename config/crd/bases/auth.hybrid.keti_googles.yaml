@@ -1,0 +1,56 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.1
+  creationTimestamp: null
+  name: googles.auth.hybrid.keti
+spec:
+  group: auth.hybrid.keti
+  names:
+    kind: Google
+    listKind: GoogleList
+    plural: googles
+    singular: google
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: Google is the Schema for the googles API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: GoogleSpec defines the desired state of Google
+            properties:
+              clusterName:
+                type: string
+              key:
+                type: string
+              projectID:
+                description: Foo is an example field of Google. Edit google_types.go
+                  to remove/update
+                type: string
+              zone:
+                type: string
+            type: object
+          status:
+            description: GoogleStatus defines the observed state of Google
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

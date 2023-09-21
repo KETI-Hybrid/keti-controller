@@ -28,8 +28,10 @@ type AmazonSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Amazon. Edit amazon_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	AwsAccessKeyID     string `json:"awsAccessKeyID-id,omitempty"`
+	AwsSecretAccessKey string `json:"awsSecretAccessKey,omitempty"`
+	Region             string `json:"Region,omitempty"`
+	DefaultARN         string `json:"DefaultARN,omitempty"`
 }
 
 // AmazonStatus defines the observed state of Amazon

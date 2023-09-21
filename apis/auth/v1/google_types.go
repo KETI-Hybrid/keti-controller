@@ -29,7 +29,10 @@ type GoogleSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of Google. Edit google_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	ProjectID   string `json:"projectID,omitempty"`
+	ClusterName string `json:"clusterName,omitempty"`
+	Zone        string `json:"zone,omitempty"`
+	Key         string `json:"key,omitempty"`
 }
 
 // GoogleStatus defines the observed state of Google
