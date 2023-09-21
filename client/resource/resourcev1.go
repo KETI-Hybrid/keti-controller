@@ -55,7 +55,7 @@ func (c *ResourceV1Client) Deployments() DeploymentInterface {
 }
 
 func (c *ResourceV1Client) Ingresses() IngressInterface {
-	return newIngresss(c)
+	return newIngresses(c)
 }
 
 func (c *ResourceV1Client) PersistentVolumeClaims() PersistentVolumeClaimInterface {

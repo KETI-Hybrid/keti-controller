@@ -12,7 +12,7 @@ import (
 )
 
 type IngressGetter interface {
-	Ingresss() IngressInterface
+	Ingresses() IngressInterface
 }
 
 type IngressInterface interface {
@@ -28,7 +28,7 @@ type ingresss struct {
 	client rest.Interface
 }
 
-func newIngresss(c *ResourceV1Client) *ingresss {
+func newIngresses(c *ResourceV1Client) *ingresss {
 	return &ingresss{
 		client: c.RESTClient(),
 	}
