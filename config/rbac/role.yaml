@@ -476,6 +476,32 @@ rules:
 - apiGroups:
   - resource.hybrid.keti
   resources:
+  - nodes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - nodes/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
+  - nodes/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - resource.hybrid.keti
+  resources:
   - persistentvolumeclaims
   verbs:
   - create

@@ -5,20 +5,20 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.11.1
   creationTimestamp: null
-  name: amazons.cloud.hybrid.keti
+  name: nodes.resource.hybrid.keti
 spec:
-  group: cloud.hybrid.keti
+  group: resource.hybrid.keti
   names:
-    kind: Amazon
-    listKind: AmazonList
-    plural: amazons
-    singular: amazon
+    kind: Node
+    listKind: NodeList
+    plural: nodes
+    singular: node
   scope: Namespaced
   versions:
   - name: v1
     schema:
       openAPIV3Schema:
-        description: Amazon is the Schema for the amazons API
+        description: Node is the Schema for the nodes API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -33,15 +33,17 @@ spec:
           metadata:
             type: object
           spec:
-            description: AmazonSpec defines the desired state of Amazon
+            description: NodeSpec defines the desired state of Node
             properties:
-              clusterName:
-                description: Foo is an example field of Amazon. Edit amazon_types.go
-                  to remove/update
+              hostip:
+                description: Foo is an example field of Node. Edit node_types.go to
+                  remove/update
+                type: string
+              parentcluster:
                 type: string
             type: object
           status:
-            description: AmazonStatus defines the observed state of Amazon
+            description: NodeStatus defines the observed state of Node
             type: object
         type: object
     served: true
