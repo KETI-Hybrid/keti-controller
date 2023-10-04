@@ -24,4 +24,5 @@ resources:
 - level_v1_rebalance.yaml
 - level_v1_watching.yaml
 - level_v1_warning.yaml
+- resource_v1_node.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

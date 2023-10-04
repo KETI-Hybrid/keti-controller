@@ -18,6 +18,7 @@ type ResourceV1Interface interface {
 	ServiceGetter
 	SpecificResourceGetter
 	StatefulsetGetter
+	NodeGetter
 }
 
 type ResourceV1Client struct {
@@ -80,4 +81,8 @@ func (c *ResourceV1Client) SpecificResources() SpecificResourceInterface {
 
 func (c *ResourceV1Client) Statefulsets() StatefulsetInterface {
 	return newStatefulsets(c)
+}
+
+func (c *ResourceV1Client) Nodes() NodeInterface {
+	return newNodes(c)
 }
