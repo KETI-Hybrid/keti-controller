@@ -1,0 +1,147 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.1
+  creationTimestamp: null
+  name: nodemetrics.level.hybrid.keti
+spec:
+  group: level.hybrid.keti
+  names:
+    kind: NodeMetric
+    listKind: NodeMetricList
+    plural: nodemetrics
+    singular: nodemetric
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: NodeMetric is the Schema for the nodemetrics API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: NodeMetricSpec defines the desired state of NodeMetric
+            properties:
+              hostCPUPercent:
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              hostCPUQuantity:
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              hostCPUUsage:
+                description: Foo is an example field of NodeMetric. Edit nodemetric_types.go
+                  to remove/update
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              hostMemoryPercent:
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              hostMemoryQuantity:
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              hostMemoryUsage:
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              hostNetworkRXBytes:
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              hostNetworkTXBytes:
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              hostStoragePercent:
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              hostStorageQuantity:
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              hostStorageUsage:
+                properties:
+                  clustername:
+                    type: string
+                  nodename:
+                    type: string
+                  value:
+                    type: string
+                type: object
+            type: object
+          status:
+            description: NodeMetricStatus defines the observed state of NodeMetric
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

@@ -320,6 +320,58 @@ rules:
 - apiGroups:
   - level.hybrid.keti
   resources:
+  - nodemetrics
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - nodemetrics/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - nodemetrics/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - podmetrics
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - podmetrics/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - podmetrics/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - level.hybrid.keti
+  resources:
   - rebalances
   verbs:
   - create
