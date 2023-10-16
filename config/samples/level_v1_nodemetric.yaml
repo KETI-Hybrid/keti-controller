@@ -1,0 +1,12 @@
+apiVersion: level.hybrid.keti/v1
+kind: NodeMetric
+metadata:
+  labels:
+    app.kubernetes.io/name: nodemetric
+    app.kubernetes.io/instance: nodemetric-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: nodemetric-sample
+spec:
+  # TODO(user): Add fields here

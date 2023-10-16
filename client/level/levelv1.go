@@ -12,6 +12,8 @@ type LevelV1Interface interface {
 	RebalanceGetter
 	WarningGetter
 	WatchingGetter
+	PodMetricGetter
+	NodeMetricGetter
 }
 
 type LevelV1Client struct {
@@ -50,4 +52,12 @@ func (c *LevelV1Client) Warnings() WarningInterface {
 
 func (c *LevelV1Client) Watchings() WatchingInterface {
 	return newWatchings(c)
+}
+
+func (c *LevelV1Client) NodeMetrics() NodeMetricInterface {
+	return newNodeMetrics(c)
+}
+
+func (c *LevelV1Client) PodMetrics() PodMetricInterface {
+	return newPodMetrics(c)
 }

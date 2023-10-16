@@ -56,8 +56,6 @@ spec:
       #             operator: In
       #             values:
       #               - linux
-      securityContext:
-        runAsNonRoot: true
         # TODO(user): For common cases that do not require escalating privileges
         # it is recommended to ensure that all your Pods/Containers are restrictive.
         # More info: https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted
@@ -67,10 +65,10 @@ spec:
         #   type: RuntimeDefault
       containers:
       - command:
-        - /manager
+        - /usr/local/bin/manager
         args:
         - --leader-elect
-        image: controller:latest
+        image: ketidevit2/controller:latest
         name: manager
         securityContext:
           allowPrivilegeEscalation: false
@@ -99,4 +97,6 @@ spec:
             cpu: 10m
             memory: 64Mi
       serviceAccountName: controller-manager
+      imagePullSecrets: 
+      - name: keti-controller-ketidevit2
       terminationGracePeriodSeconds: 10

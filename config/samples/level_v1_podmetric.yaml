@@ -1,0 +1,12 @@
+apiVersion: level.hybrid.keti/v1
+kind: PodMetric
+metadata:
+  labels:
+    app.kubernetes.io/name: podmetric
+    app.kubernetes.io/instance: podmetric-sample
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: keti-controller
+  name: podmetric-sample
+spec:
+  # TODO(user): Add fields here

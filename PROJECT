@@ -237,4 +237,22 @@ resources:
   kind: Node
   path: github.com/KETI-Hybrid/keti-controller/apis/resource/v1
   version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: level
+  kind: PodMetric
+  path: github.com/KETI-Hybrid/keti-controller/apis/level/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: hybrid.keti
+  group: level
+  kind: NodeMetric
+  path: github.com/KETI-Hybrid/keti-controller/apis/level/v1
+  version: v1
 version: "3"

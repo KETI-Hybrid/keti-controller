@@ -25,4 +25,6 @@ resources:
 - level_v1_watching.yaml
 - level_v1_warning.yaml
 - resource_v1_node.yaml
+- level_v1_podmetric.yaml
+- level_v1_nodemetric.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

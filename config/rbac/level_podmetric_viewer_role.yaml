@@ -1,0 +1,27 @@
+# permissions for end users to view podmetrics.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: podmetric-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: keti-controller
+    app.kubernetes.io/part-of: keti-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: podmetric-viewer-role
+rules:
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - podmetrics
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - level.hybrid.keti
+  resources:
+  - podmetrics/status
+  verbs:
+  - get
