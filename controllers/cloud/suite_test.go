@@ -31,7 +31,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	cloudv1 "github.com/KETI-Hybrid/keti-controller/apis/cloud/v1"
-	//+kubebuilder:scaffold:imports
 )
 
 // These tests use Ginkgo (BDD-style Go testing framework). Refer to
