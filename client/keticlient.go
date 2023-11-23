@@ -51,6 +51,7 @@ func NewForConfig(c *rest.Config) (*ClientSet, error) {
 	if err != nil {
 		return nil, err
 	}
+	
 	return &cs, nil
 }
 
