@@ -33,24 +33,30 @@ func NewForConfig(c *rest.Config) (*ClientSet, error) {
 		}
 		configShallowCopy.RateLimiter = flowcontrol.NewTokenBucketRateLimiter(configShallowCopy.QPS, configShallowCopy.Burst)
 	}
+	
 	var cs ClientSet
 	var err error
+	
 	cs.authV1, err = auth.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
+	
 	cs.cloudV1, err = cloud.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
+	
 	cs.levelV1, err = level.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
+	
 	cs.resourceV1, err = resource.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
+	
 	return &cs, nil
 }
 
