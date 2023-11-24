@@ -25,6 +25,9 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
 	resourcev1 "github.com/KETI-Hybrid/keti-controller/apis/resource/v1"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
+	"k8s.io/klog/v2"
 )
 
 // NodeReconciler reconciles a Node object
@@ -60,3 +63,12 @@ func (r *NodeReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		For(&resourcev1.Node{}).
 		Complete(r)
 }
+
+func NewClient() (*kubernetes.Clientset, error) {
+	config, err := rest.InClusterConfig()
+	if err != nil {
+		klog.Errorln(err)
+	}
+	return kubernetes.NewForConfig(config)
+}
+
