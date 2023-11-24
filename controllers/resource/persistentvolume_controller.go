@@ -23,6 +23,9 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
+	"k8s.io/klog/v2"
 
 	resourcev1 "github.com/KETI-Hybrid/keti-controller/apis/resource/v1"
 )
@@ -59,4 +62,12 @@ func (r *PersistentVolumeReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&resourcev1.PersistentVolume{}).
 		Complete(r)
+}
+
+func NewClient() (*kubernetes.Clientset, error) {
+	config, err := rest.InClusterConfig()
+	if err != nil {
+		klog.Errorln(err)
+	}
+	return kubernetes.NewForConfig(config)
 }
