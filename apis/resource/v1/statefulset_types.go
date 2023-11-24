@@ -1,64 +1,104 @@
-/*
-Copyright 2023.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
-package v1
+package storage
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"time"
+
+	"k8s.io/apimachinery/pkg/api/resource"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
-// StatefulsetSpec defines the desired state of Statefulset
-type StatefulsetSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of Statefulset. Edit statefulset_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+type Collection struct {
+	Metricsbatch *MetricsBatch
+	ClusterName  string
 }
 
-// StatefulsetStatus defines the observed state of Statefulset
-type StatefulsetStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+// MetricsBatch is a single batch of pod, container, and node metrics from some source.
+type MetricsBatch struct {
+	IP   string
+	Node NodeMetricsPoint
+	Pods []PodMetricsPoint
 }
 
-//+kubebuilder:object:root=true
-//+kubebuilder:subresource:status
-
-// Statefulset is the Schema for the statefulsets API
-type Statefulset struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-
-	Spec   StatefulsetSpec   `json:"spec,omitempty"`
-	Status StatefulsetStatus `json:"status,omitempty"`
+// NodeMetricsPoint contains the metrics for some node at some point in time.
+type NodeMetricsPoint struct {
+	Name string
+	MetricsPoint
 }
 
-//+kubebuilder:object:root=true
-
-// StatefulsetList contains a list of Statefulset
-type StatefulsetList struct {
-	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Statefulset `json:"items"`
+// PodMetricsPoint contains the metrics for some pod's containers.
+type PodMetricsPoint struct {
+	Name      string
+	Namespace string
+	MetricsPoint
+	Containers []ContainerMetricsPoint
 }
 
-func init() {
-	SchemeBuilder.Register(&Statefulset{}, &StatefulsetList{})
+// ContainerMetricsPoint contains the metrics for some container at some point in time.
+type ContainerMetricsPoint struct {
+	Name string
+	MetricsPoint
+}
+
+// MetricsPoint represents the a set of specific metrics at some point in time.
+type MetricsPoint struct {
+	Timestamp time.Time
+
+	// Cpu
+	CPUUsageNanoCores resource.Quantity
+
+	// Memory
+	MemoryUsageBytes      resource.Quantity
+	MemoryAvailableBytes  resource.Quantity
+	MemoryWorkingSetBytes resource.Quantity
+
+	// Network
+	NetworkRxBytes resource.Quantity
+	NetworkTxBytes resource.Quantity
+	NetworkChange  int64
+
+	// Prev Network
+	PrevNetworkRxBytes int64
+	PrevNetworkTxBytes int64
+	PrevNetworkChange  int64
+
+	// Fs
+	FsAvailableBytes resource.Quantity
+	FsCapacityBytes  resource.Quantity
+	FsUsedBytes      resource.Quantity
+}
+
+type PodGPU struct {
+	PodName      string
+	Pid          uint
+	Index        int
+	GPUmpscount  int
+	Usegpumemory int
+	ContainerID  string
+	RunningCheck bool
+	Isrunning    bool
+	HealthCheck  bool
+	CPU          int
+	Memory       int
+	Storage      int
+	NetworkRX    int
+	NetworkTX    int
+}
+
+type GPUMAP struct {
+	GPUUUID   string
+	PodMetric []PodGPU
+}
+
+type SlurmJob struct {
+	JobName   string
+	Index     int
+	StartTime string
+}
+
+type NvlinkStatus struct {
+	UUID          string
+	BusID         string
+	Lanes         map[string]int
+	P2PUUID       []string
+	P2PDeviceType []int //0 GPU, 1 IBMNPU, 2 SWITCH, 255 = UNKNOWN
+	P2PBusID      []string
 }
