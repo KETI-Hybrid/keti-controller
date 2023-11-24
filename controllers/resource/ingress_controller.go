@@ -23,8 +23,12 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
+	keticlient "github.com/KETI-Hybrid/keti-controller/client"
 
 	resourcev1 "github.com/KETI-Hybrid/keti-controller/apis/resource/v1"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
+	"k8s.io/klog/v2"
 )
 
 // IngressReconciler reconciles a Ingress object
@@ -49,7 +53,11 @@ type IngressReconciler struct {
 func (r *IngressReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = log.FromContext(ctx)
 
-	// TODO(user): your logic here
+	config, err := rest.InClusterConfig()
+	if err != nil {
+		klog.Errorln(err)
+	}
+	return kubernetes.NewForConfig(config)
 
 	return ctrl.Result{}, nil
 }
