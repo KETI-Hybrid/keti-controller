@@ -23,6 +23,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
+	keticlient "github.com/KETI-Hybrid/keti-controller/client"
 
 	resourcev1 "github.com/KETI-Hybrid/keti-controller/apis/resource/v1"
 )
@@ -49,7 +50,19 @@ type DeploymentReconciler struct {
 func (r *DeploymentReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = log.FromContext(ctx)
 
-	// TODO(user): your logic here
+	var err error
+	result := &ClientManager{}
+
+	result.KetiClient, err = crd.NewClient()
+	if err != nil {
+		klog.Errorln(err)
+	}
+	result.KubeClient, err = k8s.NewClient()
+	if err != nil {
+		klog.Errorln(err)
+	}
+
+	return result
 
 	return ctrl.Result{}, nil
 }
