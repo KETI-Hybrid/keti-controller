@@ -1,64 +1,125 @@
-/*
-Copyright 2023.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
-package v1
+package worker
 
 import (
+	"context"
+	"fmt"
+	"os"
+	"time"
+
+	"metric-collector/pkg/api/grpc"
+	"metric-collector/pkg/api/kubelet"
+	"metric-collector/pkg/decode"
+	"metric-collector/pkg/storage"
+
+	"github.com/prometheus/client_golang/prometheus"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	utilerrors "k8s.io/apimachinery/pkg/util/errors"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/klog/v2"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
-// PodSpec defines the desired state of Pod
-type PodSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of Pod. Edit pod_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+type PodCollector struct {
+	ClientSet     *kubernetes.Clientset
+	KubeletClient *kubelet.KubeletClient
+	pod           *grpc.PodManager
 }
 
-// PodStatus defines the observed state of Pod
-type PodStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+func NewPodManager(reg prometheus.Registerer, clientset *kubernetes.Clientset, kubeletClient *kubelet.KubeletClient) *PodCollector {
+	newpodmetric := grpc.PodManager{}
+	return &PodCollector{
+		KubeletClient: kubeletClient,
+		ClientSet:     clientset,
+		pod:           &newpodmetric,
+	}
 }
 
-//+kubebuilder:object:root=true
-//+kubebuilder:subresource:status
+func (nc PodCollector) Collect() {
+	for {
+		nodeName := os.Getenv("NODE_NAME")
+		node, err := nc.ClientSet.CoreV1().Nodes().Get(context.Background(), nodeName, metav1.GetOptions{})
+		if err != nil {
+			klog.Errorln(err)
+		}
 
-// Pod is the Schema for the pods API
-type Pod struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
+		totalCPUQuantity := node.Status.Allocatable["cpu"]
+		totalCPU, _ := totalCPUQuantity.AsInt64()
+		totalMemoryQuantity := node.Status.Allocatable["memory"]
+		totalMemory, _ := totalMemoryQuantity.AsInt64()
+		totalStorageQuantity := node.Status.Allocatable["ephemeral-storage"]
+		totalStorage, _ := totalStorageQuantity.AsInt64()
 
-	Spec   PodSpec   `json:"spec,omitempty"`
-	Status PodStatus `json:"status,omitempty"`
+		collection, err := PodScrap(nc.KubeletClient, node)
+		if err != nil {
+			klog.Errorln(err)
+		}
+
+		nc.pod.Podmetric = make([]*grpc.PodMetric, 0)
+
+		for _, podMetric := range collection.Metricsbatch.Pods {
+			if podMetric.Namespace == "cdi" || podMetric.Namespace == "keti-controller-system" || podMetric.Namespace == "keti-system" || podMetric.Namespace == "kube-flannel" || podMetric.Namespace == "kube-node-lease" || podMetric.Namespace == "kube-public" || podMetric.Namespace == "kube-system" || podMetric.Namespace == "kubevirt" {
+				continue
+			}
+
+			podmetric_data := grpc.PodMetric{}
+
+			cpuUsage, _ := podMetric.CPUUsageNanoCores.AsInt64()
+			cpuPercent := (float64(cpuUsage) * Nano) / float64(totalCPU)
+			memoryUsage, _ := podMetric.MemoryUsageBytes.AsInt64()
+			memoryPercent := float64(memoryUsage) / float64(totalMemory)
+			storageUsage, _ := podMetric.FsUsedBytes.AsInt64()
+			storagePercent := float64(storageUsage) / float64(totalStorage)
+			prevRx := podMetric.PrevNetworkRxBytes
+			prevTx := podMetric.PrevNetworkTxBytes
+			networkrxUsage, _ := podMetric.NetworkRxBytes.AsInt64()
+			networkrxUsage = networkrxUsage - prevRx
+			networktxUsage, _ := podMetric.NetworkTxBytes.AsInt64()
+			networktxUsage = networktxUsage - prevTx
+
+			podmetric_data.PodName = podMetric.Name
+			podmetric_data.CPUUsage = float32(cpuUsage)
+			podmetric_data.TotalCPU = totalCPU
+			podmetric_data.CpuPercent = float32(cpuPercent)
+
+			podmetric_data.MemoryUsage = memoryUsage
+			podmetric_data.TotalMemory = totalMemory
+			podmetric_data.MemoryPercent = float32(memoryPercent)
+
+			podmetric_data.StorageUsage = memoryUsage
+			podmetric_data.TotalStorage = totalStorage
+			podmetric_data.StoragePercent = float32(storagePercent)
+
+			podmetric_data.NetworkRx = networkrxUsage
+			podmetric_data.NetworkTx = networktxUsage
+
+			nc.pod.Podmetric = append(nc.pod.Podmetric, &podmetric_data)
+		}
+
+		time.Sleep(time.Second * 5)
+	}
+
 }
 
-//+kubebuilder:object:root=true
+func PodScrap(kubelet_client *kubelet.KubeletClient, node *v1.Node) (*storage.Collection, error) {
+	metrics, err := CollectPod(kubelet_client, node)
+	if err != nil {
+		klog.Errorf("unable to fully scrape metrics from node %s: %v", node.Name, err)
+	}
 
-// PodList contains a list of Pod
-type PodList struct {
-	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Pod `json:"items"`
+	var errs []error
+	res := &storage.Collection{
+		Metricsbatch: metrics,
+		ClusterName:  os.Getenv("CLUSTER_NAME"),
+	}
+
+	return res, utilerrors.NewAggregate(errs)
 }
 
-func init() {
-	SchemeBuilder.Register(&Pod{}, &PodList{})
+func CollectPod(kubelet_client *kubelet.KubeletClient, node *v1.Node) (*storage.MetricsBatch, error) {
+	summary, err := kubelet_client.GetSummary()
+	if err != nil {
+		return nil, fmt.Errorf("unable to fetch metrics from Kubelet %s (%s): %v", node.Name, node.Status.Addresses[0].Address, err)
+	}
+
+	return decode.DecodePodBatch(summary, prevPods)
 }
